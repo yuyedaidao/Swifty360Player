@@ -106,16 +106,20 @@ open class Swifty360ViewController: UIViewController, Swifty360CameraControllerD
     }
 
     fileprivate func addPlayerViewConstraints() {
-        let margins = view.layoutMarginsGuide
         NSLayoutConstraint.activate([
-            playerView.leadingAnchor.constraint(equalTo: margins.leadingAnchor),
-            playerView.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+            playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
-        let guide = view.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            playerView.topAnchor.constraint(equalToSystemSpacingBelow: guide.topAnchor, multiplier: 1.0),
-            guide.bottomAnchor.constraint(equalToSystemSpacingBelow: playerView.bottomAnchor, multiplier: 1.0)
-            ])
+        if #available(iOS 11.0, *) {
+            let guide = view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                playerView.topAnchor.constraint(equalTo: guide.topAnchor),
+                guide.bottomAnchor.constraint(equalToSystemSpacingBelow: playerView.bottomAnchor, multiplier: 1.0)
+                ])
+        } else {
+            NSLayoutConstraint.activate([playerView.topAnchor.constraint(equalTo: view.topAnchor), playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+        }
+        
     }
 
     override open func viewDidLoad() {

@@ -1,7 +1,8 @@
-platform :ios, '11.0'
+platform :ios, '10.0'
 
 def product_pods
     pod 'Swifty360Player', :path => '.'
+    pod 'LookinServer', :configurations => ['Debug'] #视图调试
 end
 
 workspace 'Swifty360Player.xcworkspace'

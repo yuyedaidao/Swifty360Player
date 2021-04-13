@@ -1,16 +1,23 @@
 PODS:
-  - Swifty360Player (0.2.3)
+  - LookinServer (1.0.0)
+  - Swifty360Player (0.2.5)
 
 DEPENDENCIES:
+  - LookinServer
   - Swifty360Player (from `.`)
+
+SPEC REPOS:
+  trunk:
+    - LookinServer
 
 EXTERNAL SOURCES:
   Swifty360Player:
     :path: "."
 
 SPEC CHECKSUMS:
-  Swifty360Player: 89fd29c5f1536ee2a280f41aaae4e45463582806
+  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
+  Swifty360Player: f19d2509ac3f9c89ad4c20ea6e1b9705eda27841
 
-PODFILE CHECKSUM: 290f1f29463bc6596393a40b5bf1106453b75423
+PODFILE CHECKSUM: 88aab02560eca0602203be08c4ad78efcb08f3d5
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
