@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
         'Abdullah Selek' => 'abdullahselek@yahoo.com'
     }
     s.source                = {
-        :git => 'https://github.com/abdullahselek/Swifty360Player.git',
+        :git => 'https://github.com/yuyedaidao/Swifty360Player.git',
         :tag => s.version.to_s
     }
     s.ios.deployment_target = '10.0'
