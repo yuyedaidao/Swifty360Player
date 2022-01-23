@@ -20,8 +20,8 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.black
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {[self] in
-            let videoURL = URL(fileURLWithPath: Bundle.main.path(forResource: "google-help-vr", ofType: "mp4")!)
-            
+//            let videoURL = URL(fileURLWithPath: Bundle.main.path(forResource: "google-help-vr", ofType: "mp4")!)
+            let videoURL = URL(string: "https://camlive302.iqilu.com/live/sdlianghui2022vr/playlist.m3u8")!
             player = AVPlayer(url: videoURL)
 
             let motionManager = Swifty360MotionManager.shared

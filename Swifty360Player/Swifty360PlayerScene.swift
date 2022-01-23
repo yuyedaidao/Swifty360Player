@@ -38,6 +38,7 @@ open class Swifty360PlayerScene: SCNScene {
         return cameraNode
     }
     private var player: AVPlayer!
+    public var sceneSize: CGSize = CGSize(width: 3960, height: 1980)
 
     public init(withAVPlayer player: AVPlayer, view: SCNView) {
         super.init()
@@ -69,14 +70,17 @@ open class Swifty360PlayerScene: SCNScene {
     }
 
     internal func getScene() -> SKScene {
-        let assetTrack = player.currentItem?.asset.tracks(withMediaType: .video).first
-        let assetDimensions = assetTrack != nil ? __CGSizeApplyAffineTransform(assetTrack!.naturalSize, assetTrack!.preferredTransform) :
-            CGSize(width: 1280.0, height: 1280.0)
+        let assetDimensions: CGSize
+        if let assetTrack = player.currentItem?.asset.tracks(withMediaType: .video).first {
+            assetDimensions = __CGSizeApplyAffineTransform(assetTrack.naturalSize, assetTrack.preferredTransform)
+        } else {
+            assetDimensions = sceneSize
+        }
+            
         let scene = SKScene(size: CGSize(width: fabsf(assetDimensions.width.getFloat()).getCGFloat(),
                                          height: fabsf(assetDimensions.height.getFloat()).getCGFloat()))
         scene.shouldRasterize = true
         scene.scaleMode = .aspectFit
-        scene.addChild(getVideoNode(withPlayer: player, scene: scene))
         return scene
     }
 

@@ -26,7 +26,7 @@ import UIKit
 import SceneKit
 import AVFoundation
 
-public protocol Swifty360ViewDelegate: class {
+public protocol Swifty360ViewDelegate: AnyObject {
     func didUpdateCompassAngle(withViewController: Swifty360View, compassAngle: Float)
     func userInitallyMovedCameraViaMethod(withView: Swifty360View, method: Swifty360UserInteractionMethod)
 }
@@ -100,6 +100,7 @@ open class Swifty360View: UIView {
         self.player = player
         self.player.automaticallyWaitsToMinimizeStalling = false
         self.motionManager = motionManager
+        setup(player: player, motionManager: motionManager)
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -114,13 +115,11 @@ open class Swifty360View: UIView {
         self.motionManager = motionManager
         cameraController = Swifty360CameraController(withView: sceneView, motionManager: self.motionManager)
         cameraController.delegate = self
-        weak var weakSelf = self
-        cameraController.compassAngleUpdateBlock = { compassAngle in
-            guard let strongSelf = weakSelf else {
+        cameraController.compassAngleUpdateBlock = {[weak self] compassAngle in
+            guard let self = self else {
                 return
             }
-            strongSelf.delegate?.didUpdateCompassAngle(withViewController: strongSelf,
-                                                       compassAngle: strongSelf.compassAngle)
+            self.delegate?.didUpdateCompassAngle(withViewController: self, compassAngle: self.compassAngle)
         }
 
         backgroundColor = UIColor.black
@@ -129,21 +128,17 @@ open class Swifty360View: UIView {
         /// Prevent the edges of the "aspect-fill" resized player scene from being
         /// visible beyond the bounds of self.view.
         clipsToBounds = true
-
         sceneView.backgroundColor = UIColor.black
         sceneView.isOpaque = true
         sceneView.delegate = self
         addSubview(sceneView)
-
         sceneView.isPlaying = true
-
         cameraController.updateCameraFOV(withViewSize: bounds.size)
     }
 
     override open func layoutSubviews() {
         super.layoutSubviews()
-        sceneView.frame = Swifty360ViewSceneFrameForContainingBounds(containingBounds: bounds,
-                                                                     underlyingSceneSize: underlyingSceneSize)
+        sceneView.frame = Swifty360ViewSceneFrameForContainingBounds(containingBounds: bounds, underlyingSceneSize: underlyingSceneSize)
     }
 
     override open func didMoveToWindow() {
