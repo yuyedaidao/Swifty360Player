@@ -21,7 +21,7 @@ class ViewController: UIViewController {
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {[self] in
 //            let videoURL = URL(fileURLWithPath: Bundle.main.path(forResource: "google-help-vr", ofType: "mp4")!)
-            let videoURL = URL(string: "https://camlive302.iqilu.com/live/sdlianghui2022vr/playlist.m3u8")!
+            let videoURL = URL(string: "https://camvod.iqilu.com//live-sdlianghui2022vr--20220123072053.m3u8?wsStart=1642899590&wsEnd=1642906200")!
             player = AVPlayer(url: videoURL)
 
             let motionManager = Swifty360MotionManager.shared
